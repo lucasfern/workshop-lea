@@ -1,7 +1,6 @@
 library(tidyverse)
 library(palmerpenguins)
 library(gapminder)
-library(janitor)
 
 # ANÁLISE EXPLORATÓRIA E VISUALIZAÇÃO DE DADOS ---------------------------------
 
@@ -154,7 +153,7 @@ gapminder |>
 #    em 2007?
 
 # 3. Usando dados de 2007, há relação entre PIB per capita 
-# e expectativa de vida no mundo? e visualizando por continente? 
+#    e expectativa de vida no mundo? e visualizando por continente? 
 
 # 4. Mostre os 10 países com maior população em 2007.
 
