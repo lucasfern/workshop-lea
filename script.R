@@ -1,13 +1,14 @@
 library(tidyverse)
 library(palmerpenguins)
+library(gapminder)
 library(janitor)
+
+# ANÁLISE EXPLORATÓRIA E VISUALIZAÇÃO DE DADOS ---------------------------------
 
 ?penguins
 
 # visualizando os dados
 glimpse(penguins)
-
-# análise exploratória
 
 ## pinguins por espécie
 penguins |> 
@@ -121,29 +122,50 @@ penguins |>
        title = "Comprimento vs. altura do bico dos pinguins, por espécie") +
   theme_bw()
 
-##
-glimpse(penguins_raw)
-
-penguins_raw |>
-  filter(year(date_egg) == 2007) |> 
-  count(date_egg) |> 
-  ggplot(aes(x = date_egg, y = n)) +
-  geom_line()
-
-penguins |> 
-  count(year) |> 
-  ggplot(aes(x = year, y = n)) +
-  geom_line()
-
-library(gapminder)
+?gapminder
 
 glimpse(gapminder)
 
+## evolução da população mundial
 gapminder |> 
   group_by(year) |>
   summarise(n = sum(pop)) |> 
   ggplot(aes(x = year, y = n)) +
   geom_line() +
-  geom_point()
+  geom_point() +
+  scale_y_continuous(
+    labels = scales::label_number(scale = 1/1e9)
+  ) +
+  scale_x_continuous(breaks = seq(1952, 2007, 5)) +
+  labs(x = "Ano", y = "População (em bilhões)",
+       title = "População mundial entre 1952 e 2007") +
+  theme_minimal()
 
 
+# EXERCÍCIOS -------------------------------------------------------------------
+
+# Usando técnicas de análise exploratória de dados, produza gráficos
+# adequados para responder:
+
+# 1. Como foi a evolução da expectativa de vida no Brasil ao
+#    longo dos anos?
+
+# 2. Como estava a distribuição do PIB per capita por continente
+#    em 2007?
+
+# 3. Usando dados de 2007, há relação entre PIB per capita 
+# e expectativa de vida no mundo? e visualizando por continente? 
+
+# 4. Mostre os 10 países com maior população em 2007.
+
+# 5. Em que ano a Argentina ultrapassou o Chile em PIB per capita?
+
+# Dica: 
+# As funções filter() e slice_max() servem para filtrar linhas
+# específicas. Utilize o help() para saber mais como funcionam.
+
+
+# REFERÊNCIAS GRATUITAS --------------------------------------------------------
+
+# https://r4ds.hadley.nz/
+# https://ggplot2-book.org/
